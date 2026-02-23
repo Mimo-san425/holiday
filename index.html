@@ -1,1 +1,296 @@
 
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>休日の感想をレベルアップさせよう</title>
+
+<style>
+body{
+  font-family:"UD デジタル 教科書体 N-R","Hiragino Sans","Noto Sans JP",sans-serif;
+  background:#fafafa;
+}
+.sheet{
+  max-width:900px;
+  margin:20px auto;
+  background:#fff;
+  border:1px solid #ccc;
+  border-radius:12px;
+  padding:20px;
+}
+h1{margin-top:0}
+
+.step{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+textarea,input[type=text],select{
+  width:100%;
+  font-size:16px;
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #bbb;
+  box-sizing:border-box;
+}
+textarea{min-height:90px}
+
+#result{
+  min-height:260px;
+}
+
+.radio-group label{
+  display:block;
+  margin:6px 0;
+  cursor:pointer;
+}
+
+.small-note{color:#444; font-size:0.95em; margin:6px 0 8px;}
+
+button{
+  padding:10px 14px;
+  font-size:14px;
+  border-radius:8px;
+  border:1px solid #aaa;
+  background:#f5f5f5;
+  cursor:pointer;
+  margin-right:6px;
+}
+
+/* 印刷（PDF）用 */
+@media print{
+  button{display:none;}
+  body{background:#fff;}
+  .sheet{border:none;}
+}
+</style>
+</head>
+
+<body>
+<div class="sheet">
+
+  <h1>休日の感想を<span style="letter-spacing:0.02em;">書</span>こう</h1>
+
+  <!-- ① 何曜日？ -->
+  <div class="step">
+    <h2>① 何曜日？（ ）</h2>
+    <label for="weekday" class="small-note">※ えらんでください</label>
+    <select id="weekday">
+      <option value="" selected>— えらんでください —</option>
+      <option value="月曜日">月曜日</option>
+      <option value="火曜日">火曜日</option>
+      <option value="水曜日">水曜日</option>
+      <option value="木曜日">木曜日</option>
+      <option value="金曜日">金曜日</option>
+      <option value="土曜日">土曜日</option>
+      <option value="日曜日">日曜日</option>
+    </select>
+  </div>
+
+  <!-- ② どこにいましたか？ 家 / 外（外なら記入） -->
+  <div class="step">
+    <h2>② どこにいましたか？（選択式）</h2>
+    <div class="radio-group" id="placeGroup">
+      <label><input type="radio" name="place" value="家">家</label>
+      <label>
+        <input type="radio" name="place" value="外" id="placeOutsideRadio">外
+        <span style="display:inline-block; margin-left:8px; width:60%;">
+          <input type="text" id="placeOutsideText" placeholder="例）公園／ショッピングモール／祖父母の家 など" disabled>
+        </span>
+      </label>
+    </div>
+  </div>
+
+  <!-- ③ だれといましたか？（統一形） -->
+  <div class="step">
+    <h2>③ だれといましたか？（選択式）</h2>
+    <div class="radio-group" id="withWhomGroup">
+      <label><input type="radio" name="withWhom" value="一人で">一人で</label>
+      <label><input type="radio" name="withWhom" value="家族と一緒に">家族と一緒に</label>
+      <label><input type="radio" name="withWhom" value="友達と一緒に">友達と一緒に</label>
+      <label>
+        <input type="radio" name="withWhom" value="__other__" id="withOtherRadio"> その他（
+        <span style="display:inline-block; width:60%;">
+          <input type="text" id="withOtherText" placeholder="だれ？（例：いとこ／クラブの人 など）" disabled>
+        </span>
+        と一緒に）
+      </label>
+    </div>
+  </div>
+
+  <!-- ④ なにをしましたか？（記述式） -->
+  <div class="step">
+    <h2>④ なにをしましたか？（記述式）</h2>
+    <p class="small-note">
+      例）YouTubeを見ました／ゲームをしました／アニメを見ました　ほか
+    </p>
+    <input type="text" id="activity" placeholder="例）YouTubeを見ました／ゲームをしました／アニメを見ました">
+  </div>
+
+  <!-- ⑤ そのときの気持ち（1つ） -->
+  <div class="step">
+    <h2>⑤ そのときの気持ち（1つ）</h2>
+    <div class="radio-group" id="feelingRadios">
+      <label><input type="radio" name="feeling" value="うれしかったです。">うれしかったです。</label>
+      <label><input type="radio" name="feeling" value="たのしかったです。">たのしかったです。</label>
+      <label><input type="radio" name="feeling" value="リラックスできました。">リラックスできました。</label>
+      <label><input type="radio" name="feeling" value="がんばりました。">がんばりました。</label>
+      <label><input type="radio" name="feeling" value="つかれました。">つかれました。</label>
+      <label><input type="radio" name="feeling" value="つまらなかったです。">つまらなかったです。</label>
+      <label><input type="radio" name="feeling" value="わくわくしました。">わくわくしました。</label>
+      <label><input type="radio" name="feeling" value="どきどきしました。">どきどきしました。</label>
+      <label><input type="radio" name="feeling" value="かなしかったです。">かなしかったです。</label>
+      <label style="margin-top:8px;">
+        <input type="radio" name="feeling" value="__other__" id="feelingOtherRadio"> その他：
+        <input type="text" id="feelingOtherText" placeholder="自由に入力（例：ほっとしました など）" style="width:60%; margin-left:6px;" disabled>
+      </label>
+    </div>
+  </div>
+
+  <!-- まとめ -->
+  <div class="step">
+    <h2>感想のまとめ</h2>
+    <button type="button" onclick="build()">まとめる</button>
+    <button type="button" onclick="makePDF()">PDFにする</button>
+    <textarea id="result" readonly placeholder="ここに文章が表示されます"></textarea>
+  </div>
+
+</div>
+
+<script>
+/* ② 外を選んだときだけ場所入力を有効化 */
+(function(){
+  const radios = document.querySelectorAll('input[name="place"]');
+  const outsideText  = document.getElementById('placeOutsideText');
+  function syncOutside(){
+    const selected = document.querySelector('input[name="place"]:checked');
+    const isOutside = selected && selected.value === '外';
+    outsideText.disabled = !isOutside;
+    if(!isOutside){ outsideText.value = ""; }
+    if(isOutside){ outsideText.focus(); }
+  }
+  radios.forEach(r => r.addEventListener('change', syncOutside));
+})();
+
+/* ③ その他（だれと）を選んだときだけテキスト入力を有効化 */
+(function(){
+  const radios = document.querySelectorAll('input[name="withWhom"]');
+  const otherText  = document.getElementById('withOtherText');
+  function syncOther(){
+    const selected = document.querySelector('input[name="withWhom"]:checked');
+    const isOther = selected && selected.value === '__other__';
+    otherText.disabled = !isOther;
+    if(!isOther){ otherText.value = ""; }
+    if(isOther){ otherText.focus(); }
+  }
+  radios.forEach(r => r.addEventListener('change', syncOther));
+})();
+
+/* ⑤ その他（気持ち）を選んだときだけテキスト入力を有効化 */
+(function(){
+  const radios = document.querySelectorAll('input[name="feeling"]');
+  const otherText  = document.getElementById('feelingOtherText');
+  function syncOther(){
+    const selected = document.querySelector('input[name="feeling"]:checked');
+    const isOther = selected && selected.value === '__other__';
+    otherText.disabled = !isOther;
+    if(!isOther){ otherText.value = ""; }
+    if(isOther){ otherText.focus(); }
+  }
+  radios.forEach(r => r.addEventListener('change', syncOther));
+})();
+
+/* 日本語として自然な文を作る（⑤の気持ちも表示） */
+function build(){
+  const weekday = document.getElementById('weekday').value;
+
+  // ② どこ（家／外（詳細））→ 「家で」「外（公園）で」
+  const placeNode = document.querySelector('input[name="place"]:checked');
+  let placePhrase = "";
+  if(placeNode){
+    if(placeNode.value === '外'){
+      const detail = (document.getElementById('placeOutsideText').value || "").trim();
+      placePhrase = detail ? `外（${detail}）で` : "外で";
+    } else {
+      placePhrase = "家で";
+    }
+  }
+
+  // ③ だれと → 「一人で／家族と一緒に／友達と一緒に／（自由記述）と一緒に」
+  const withNode = document.querySelector('input[name="withWhom"]:checked');
+  let withPhrase = "";
+  if(withNode){
+    if(withNode.value === '__other__'){
+      const who = (document.getElementById('withOtherText').value || "").trim();
+      withPhrase = who ? `${who}と一緒に` : "";
+    } else {
+      withPhrase = withNode.value;
+    }
+  }
+
+  // ④ 活動（句点を整える）
+  const activityRaw = (document.getElementById('activity').value || "").trim();
+  const activitySentence = toSentence(activityRaw);
+
+  // ⑤ 気持ち（単一）→ まとめに表示
+  const f = document.querySelector('input[name="feeling"]:checked');
+  let feelingSentence = "";
+  if(f){
+    if(f.value === '__other__'){
+      const free = (document.getElementById('feelingOtherText').value || "").trim();
+      if(free){ feelingSentence = toSentence(free); }
+    }else{
+      // プリセットは既に過去形の丁寧表現＋句点ありなので、そのまま使用
+      feelingSentence = toSentence(f.value);
+    }
+  }
+
+  let lines = [];
+
+  // 1文目：曜日 + 場所 + だれと
+  const segs = [];
+  if(weekday) segs.push(`${weekday}は`);
+  if(placePhrase) segs.push(placePhrase);
+  if(withPhrase) segs.push(withPhrase);
+  if(segs.length > 0){
+    lines.push(segs.join("、") + "過ごしました。");
+  }
+
+  // 2文目：活動
+  if(activitySentence){
+    lines.push(`そのときは、${activitySentence}`);
+  }
+
+  // 3文目：気持ち（過去形の自然文）
+  if(feelingSentence){
+    // 「うれしかったです。」などを「気持ちは、〜」で包む
+    const trimmed = feelingSentence.replace(/[。．.]+$/,""); // 末尾句点除去
+    lines.push(`${trimmed}。`);
+  }
+  if(lines.length === 0){
+    lines.push("入力内容がありません。上の項目を入力・選択してから「まとめる」を押してください。");
+  }
+
+  document.getElementById('result').value = lines.join("\n\n");
+}
+
+/* 「〜。」で終わる一文に整える（空なら空） */
+function toSentence(str){
+  if(!str) return "";
+  let s = str.replace(/\s+/g," ").replace(/[。．.]+$/,"").trim();
+  if(s === "") return "";
+  return s + "。";
+}
+
+/* PDF化 */
+function makePDF(){
+  build();
+  window.print();
+}
+</script>
+
+</body>
+</html>
